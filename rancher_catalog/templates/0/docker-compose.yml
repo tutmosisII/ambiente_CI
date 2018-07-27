@@ -1,0 +1,26 @@
+version: '2'
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    hostname: git
+    stdin_open: true
+    volumes:
+    - gitlab-etc:/etc/gitlab
+    - gitlab-opt:/var/opt/gitlab
+    - gitlab-log:/var/log/gitlab
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: postfix
+  postfix:
+    image: 'tozd/postfix'
+    environment:
+      MY_NETWORKS: 10.42.0.0/16, 127.0.0.0/8
+      ROOT_ALIAS: root@localhost
+    stdin_open: true
+    volumes:
+    - postfix-log:/var/log/postfix
+    - postfix-spool:/var/spool/postfix
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
