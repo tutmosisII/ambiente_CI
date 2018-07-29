@@ -33,22 +33,29 @@ Ahora Rancher en la sección de Host debería verse así:
 ![Nodos Rancher](images/rancher_nodes.png)
 #### 2.1.1 Desplegando Gitlab
 
->Cree un stack llamado gitlab.
+>## Image
+1.Cree un stack llamado gitlab.
+
+>2.Adicione un servicio al stack llamelo gitlab
 >
-Adicione un servicio al stack llamelo gitlab
+>3.Image: gitlab/gitlab-ce:latest
+
+![paso](images/rancher_s01.png)
+
+
+> ## Volumes:
+> En la pestaña de **volumenes** configure los siguientes.
+
+>  1. gitlab-etc:/etc/gitlab
 >
-Image: gitlab/gitlab-ce:latest
+>  2. gitlab-opt:/var/opt/gitlab
 >
-Volumes:
->
-gitlab-etc:/etc/gitlab
->
-gitlab-opt:/var/opt/gitlab
->
-gitlab-log:/var/log/gitlab
->
-Networking
->
+>  3. gitlab-log:/var/log/gitlab
+
+![paso](images/rancher_s02.png)
+
+> ## Networking
+> En la pestañana de **networking** configure lo siguiente
 Configure el nombre del host: git
 >
 Health Check
@@ -56,11 +63,17 @@ Health Check
 HTTP: Port 80
 Path: GET /HTTP/1.0
 >
-Add a sidekick to the service called postfix
+![paso](images/rancher_s03.png)
+![paso](images/rancher_s04.png)
+
+>Add a sidekick to the service called **postfix**
 >
 Image: tozd/postfix
->
-Environment:
+
+![paso](images/rancher_s05.png)
+
+
+>## Environment:
 >
 MY_NETWORKS:10.42.0.0/16, 127.0.0.0/8
 >
@@ -76,11 +89,7 @@ TCP: Port 25
 
 Lo mismo, pero en imágenes:
 
-![paso](images/rancher_s01.png)
-![paso](images/rancher_s02.png)
-![paso](images/rancher_s03.png)
-![paso](images/rancher_s04.png)
-![paso](images/rancher_s05.png)
+
 ![paso](images/rancher_s06.png)
 ![paso](images/rancher_s07.png)
 ![paso](images/rancher_s08.png)
